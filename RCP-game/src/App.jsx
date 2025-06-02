@@ -1,33 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import Box from "./components/Box";
+
+// 1. 박스 2개( 타이틀, 사진, 결과)
+// 2. 가위 바위 보 버튼
+// 3. 버튼 클릭 시 클릭한 값이 박스에 보임
+// 4. 컴퓨터는 랜덤하게 아이템 선택이 됨.
+// 5. 3 4 결과를 가지고 누가 이겼는지 승패를 따짐.
+// 6. 승패 결과에 따라 테두리 색 변경(이기면-초록, 지면- 빨강, 비기면- 블랙)
+
+const choice = {
+  rock:{
+    name:"Rock",
+    img:"https://www.pngitem.com/pimgs/m/109-1094400_rock-paper-scissors-png-clipart-rock-paper-scissor.png"
+  },
+  scissors:{
+    name:"Scissors", 
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKyJob5hcksKHEhaDgqD7g1122-WhLmEQAKVJiozWqvSjHlNr8Qy0rD2HG8ocMWBWS9QU&usqp=CAU"
+  },
+  paper:{
+    name:"Papper",
+    img:"https://www.pngitem.com/pimgs/m/266-2667252_transparent-rock-paper-scissors-clipart-rock-paper-scissors.png"
+}
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
+
+  const play=(userChoice)=>{
+    
+    setUserSelect(choice[userChoice]);
+    let computerChoice = randomChoice();
+    setComputerSelect(computerChoice);
+  };
+
+  // 객체에 키값만 뽑아서 array로 만들어주는 함수
+  const randomChoice=()=>{
+    let itemArray = Object.keys(choice);
+    let randomItem = Math.floor(Math.random() * itemArray.length);
+    let final = itemArray[randomItem];
+
+    return choice[final];
+  }
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="main">
+        <Box title="You" item={userSelect}/>
+        <Box title="Computer" item={computerSelect} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="main-btn">
+        <button onClick={()=>play("scissors")}>가위</button>
+        <button onClick={()=>play("rock")}>바위</button>
+        <button onClick={()=>play("paper")}>보</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
