@@ -1,12 +1,21 @@
 .box {
-  border: 1px solid black;
+  border: 5px solid black; 
   width: 500px;
+  height: 500px;
   text-align: center;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
 
 .item-img{
-  width:400px;
+  width:300px;
+  height: 300px;
+  align-items: center;
+  padding-left:50px;
 }
 
 .main{
@@ -18,4 +27,16 @@
 .main-btn{
   text-align: center;
   padding-top:10px;
+}
+
+.box.win {
+  border-color: green;
+}
+
+.box.lose {
+  border-color: red;
+}
+
+.box.tie {
+  border-color: black;
 }

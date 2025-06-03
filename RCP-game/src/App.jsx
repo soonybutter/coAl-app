@@ -39,27 +39,49 @@ function App() {
   };
 
   const judgement=(user, computer)=>{
-    // user== computer : 비김
-    // user== rock, computer == "scissors" user 이김
-    // user == "rock" computer == paper user 짐
-    // user == scissors computer paper user 이김
-    // user == scissors computer rock user 짐
-    // user == paper, computer scissors user 짐
 
-    if(user.name== computer.name){
+    if(user.name=== computer.name){
       return "tie";
     }
-    else if(user.name== "Rock"){
-      if(computer.name=="Scissors"){
+    else if(user.name=== "Rock"){
+      if(computer.name==="Scissors"){
         return "win";
       }
       else{
         return "lose";
       }
     }
-    else if(user.name== "Scissors") return computer.mname=="Paper"?"win":"lose";
-    else if(user.name== "Paper") return computer == "Rock"? "win": "lose";
+    else if(user.name=== "Scissors"){
+
+      if(computer.name==="Papper"){
+        return "win";
+      }
+      else{
+        return "lose";
+      }
+
+    }
+    else if(user.name=== "Papper"){
+    
+      if(computer.name==="Rock"){
+        return "win";
+      }
+      else{
+        return "lose";
+      }
+    
+    }
   }
+
+  const computerCondition = (result) => {
+    if (result === "tie") return "tie";
+
+    if (result === "win") return "lose";
+
+    if (result === "lose") return "win";
+    
+    return "";
+  };
 
   // 객체에 키값만 뽑아서 array로 만들어주는 함수
   const randomChoice=()=>{
@@ -69,14 +91,13 @@ function App() {
 
     return choice[final];
   }
-
   
 
   return (
     <>
       <div className="main">
         <Box title="You" item={userSelect} result={result}/>
-        <Box title="Computer" item={computerSelect} result={result} />
+        <Box title="Computer" item={computerSelect} result={computerCondition(result)} />
       </div>
       <div className="main-btn">
         <button onClick={()=>play("scissors")}>가위</button>
